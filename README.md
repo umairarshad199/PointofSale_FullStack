@@ -251,56 +251,43 @@ These accounts can be used to test the different permissions and functionality a
 
 
 
-# 🏗️ System Architecture
-
-
+## 🏗️ System Architecture
 
 The application follows a client-server architecture:
 
-
-┌─────────────────────────────────────┐
-│          React Frontend             │
-│                                     │
-│  Login                              │
-│  Dashboard                          │
-│  Products                           │
-│  Cart                               │
-│  Sales                              │
-│  Receipts                           │
-└────────────────┬────────────────────┘
-                 │
-                 │ HTTP / REST API
-                 ▼
-┌─────────────────────────────────────┐
-│       ASP.NET Core Web API          │
-│                                     │
-│  Controllers                        │
-│  Services                           │
-│  Authentication                     │
-│  Authorization                      │
-│  Business Logic                     │
-└────────────────┬────────────────────┘
-                 │
-                 │ Entity Framework Core
-                 ▼
-┌─────────────────────────────────────┐
-│           SQL Server                │
-│                                     │
-│  Products                           │
-│  Users                              │
-│  Sales                              │
-│  Receipts                           │
-│  Receipt Items                      │
-└─────────────────────────────────────┘
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                     React Frontend                          │
+│                                                             │
+│   Login  │  Dashboard  │  Products  │  Cart  │  Sales     │
+│   Receipts                                                │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                     HTTP / REST API
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│                  ASP.NET Core Web API                       │
+│                                                             │
+│  Controllers  │  Services  │  Authentication  │            │
+│  Authorization  │  Business Logic                          │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                     Entity Framework Core
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│                       SQL Server                            │
+│                                                             │
+│  Products  │  Users  │  Sales  │  Receipts  │  ReceiptItems│
+└─────────────────────────────────────────────────────────────┘
+```
 
 
-# 📁 Project Structure
+## 📁 Project Structure
 
-
-PointofSale\_FullStack/
+```text
+PointofSale_FullStack/
 │
 ├── QuickStopMart.Api/
-│   │
 │   ├── Controllers/
 │   │   ├── AuthController.cs
 │   │   ├── CartController.cs
@@ -313,52 +300,35 @@ PointofSale\_FullStack/
 │   │   └── AppDbContext.cs
 │   │
 │   ├── DTOs/
-│   │
 │   ├── Migrations/
-│   │   ├── InitialCreate
-│   │   ├── ChangeMoneyTypes
-│   │   ├── AddReceiptUserRelation
-│   │   ├── AddHiddenFromAdmin
-│   │   ├── AddReceiptAmounts
-│   │   ├── AddReceiptItems
-│   │   ├── ConfigureReceiptMoneyTypes
-│   │   └── AppDbContextModelSnapshot.cs
-│   │
 │   ├── Models/
-│   │
 │   ├── Services/
-│   │
-│   ├── Properties/
-│   │
 │   ├── Program.cs
-│   ├── appsettings.json
-│   └── QuickStopMart.Api.csproj
+│   └── appsettings.json
 │
 ├── QuickStopMart.Frontend/
-│   │
-│   ├── public/
-│   │
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Sidebar
-│   │   │   └── ProtectedRoute
-│   │   │
+│   │   │   ├── Sidebar/
+│   │   │   └── ProtectedRoute/
 │   │   ├── pages/
-│   │   │   ├── Login
-│   │   │   ├── Dashboard
-│   │   │   ├── Products
-│   │   │   ├── Cart
-│   │   │   ├── Sales
-│   │   │   └── Receipts
-│   │   │
+│   │   │   ├── Login/
+│   │   │   ├── Dashboard/
+│   │   │   ├── Products/
+│   │   │   ├── Cart/
+│   │   │   ├── Sales/
+│   │   │   └── Receipts/
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   │
+│   ├── public/
 │   ├── package.json
 │   └── vite.config.js
 │
+├── Screenshots/
 ├── .gitignore
 └── README.md
+```
 
 
 
@@ -746,22 +716,28 @@ The terminal will display the local URL where the frontend is running.
 # 🔗 Frontend and Backend Communication
 
 
-
 The React frontend communicates with the ASP.NET Core backend through RESTful HTTP requests.
 
-
-React Frontend
-      │
-      │ HTTP Requests
-      ▼
-ASP.NET Core Web API
-      │
-      │ Entity Framework Core
-      ▼
-SQL Server
-
+```text
+┌─────────────────────────┐
+│     React Frontend      │
+└────────────┬────────────┘
+             │
+             │ HTTP Requests
+             ▼
+┌─────────────────────────┐
+│   ASP.NET Core Web API  │
+└────────────┬────────────┘
+             │
+             │ Entity Framework Core
+             ▼
+┌─────────────────────────┐
+│       SQL Server        │
+└─────────────────────────┘
+```
 
 Authenticated requests use the JWT token generated during login.
+
 
 
 
@@ -934,31 +910,31 @@ EF Core migration files are included because they describe the database schema a
 
 ### Login
 
-!\[Login](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/login.png)
+![Login](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/login.png)
 
 ### Admin Dashboard
 
-!\[Admin Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/admin_dashboard.png)
+![Admin Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/admin_dashboard.png)
 
 ### User Dashboard
 
-!\[User Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/user_dashboard.png)
+![User Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/user_dashboard.png)
 
 ### Products
 
-!\[Products](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/products.png)
+![Products](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/products.png)
 
 ### Shopping Cart
 
-!\[Shopping Cart](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/cart.png)
+![Shopping Cart](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/cart.png)
 
 ### Sales / Checkout
 
-!\[Sales](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/sales.png)
+![Sales](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/sales.png)
 
 ### Receipts
 
-!\[Receipts](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/receipts.png)
+![Receipts](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/receipts.png)
 
 
 
