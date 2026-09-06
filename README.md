@@ -934,31 +934,31 @@ EF Core migration files are included because they describe the database schema a
 
 ### Login
 
-!\[Login](screenshots/login.png)
+!\[Login](Screenshots/login.png)
 
 ### Admin Dashboard
 
-!\[Admin Dashboard](screenshots/admin\_dashboard.png)
+!\[Admin Dashboard](Screenshots/admin\_dashboard.png)
 
 ### User Dashboard
 
-!\[User Dashboard](screenshots/user\_dashboard.png)
+!\[User Dashboard](Screenshots/user\_dashboard.png)
 
 ### Products
 
-!\[Products](screenshots/products.png)
+!\[Products](Screenshots/products.png)
 
 ### Shopping Cart
 
-!\[Shopping Cart](screenshots/cart.png)
+!\[Shopping Cart](Screenshots/cart.png)
 
 ### Sales / Checkout
 
-!\[Sales](screenshots/sales.png)
+!\[Sales](Screenshots/sales.png)
 
 ### Receipts
 
-!\[Receipts](screenshots/receipts.png)
+!\[Receipts](Screenshots/receipts.png)
 
 
 
@@ -1117,4 +1117,5 @@ See the `LICENSE` file for more information.
 
 
 A complete full-stack Point of Sale system built with **React + ASP.NET Core + Entity Framework Core + SQL Server**.
+
 
