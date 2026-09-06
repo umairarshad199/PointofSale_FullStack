@@ -715,7 +715,6 @@ The terminal will display the local URL where the frontend is running.
 
 # 🔗 Frontend and Backend Communication
 
-[svg](https://github.com/umairarshad199/PointofSale_FullStack/blob/main/README.md#-frontend-and-backend-communication)
 
 The React frontend communicates with the ASP.NET Core backend through RESTful HTTP requests.
 
