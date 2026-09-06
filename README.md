@@ -934,31 +934,31 @@ EF Core migration files are included because they describe the database schema a
 
 ### Login
 
-!\[Login](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/login.png)
+![Login](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/login.png)
 
 ### Admin Dashboard
 
-!\[Admin Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/admin_dashboard.png)
+![Admin Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/admin_dashboard.png)
 
 ### User Dashboard
 
-!\[User Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/user_dashboard.png)
+![User Dashboard](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/user_dashboard.png)
 
 ### Products
 
-!\[Products](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/products.png)
+![Products](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/products.png)
 
 ### Shopping Cart
 
-!\[Shopping Cart](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/cart.png)
+![Shopping Cart](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/cart.png)
 
 ### Sales / Checkout
 
-!\[Sales](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/sales.png)
+![Sales](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/sales.png)
 
 ### Receipts
 
-!\[Receipts](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/receipts.png)
+![Receipts](https://raw.githubusercontent.com/umairarshad199/PointofSale_FullStack/main/Screenshots/receipts.png)
 
 
 
