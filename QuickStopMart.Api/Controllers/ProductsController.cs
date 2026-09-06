@@ -25,7 +25,8 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var products = await _productService.GetAllProductsAsync();
+        var products =
+            await _productService.GetAllProductsAsync();
 
         var dtos = products.Select(p => new ProductDto
         {
@@ -89,10 +90,12 @@ public class ProductsController : ControllerBase
                 product);
 
         if (updated == null)
+        {
             return NotFound(new
             {
                 message = "Product not found."
             });
+        }
 
         return Ok(updated);
     }
@@ -105,11 +108,10 @@ public class ProductsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        // First check whether the product exists
-        var product =
-            await _productService.GetProductByIdAsync(id);
+        var deleted =
+            await _productService.DeleteProductAsync(id);
 
-        if (product == null)
+        if (!deleted)
         {
             return NotFound(new
             {
@@ -117,23 +119,9 @@ public class ProductsController : ControllerBase
             });
         }
 
-        // Try to delete the product
-        var deleted =
-            await _productService.DeleteProductAsync(id);
-
-        // DeleteProductAsync returns false when
-        // the product has existing receipt items
-        if (!deleted)
-        {
-            return BadRequest(new
-            {
-                message = "This product cannot be deleted because it has existing sales records."
-            });
-        }
-
         return Ok(new
         {
-            message = "Product deleted successfully."
+            message = "Product removed successfully."
         });
     }
 }

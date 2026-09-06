@@ -29,18 +29,22 @@ public class DashboardController : ControllerBase
     {
         // =================================================
         // TOTAL PRODUCTS
+        // Only active products are counted
         // =================================================
 
         var totalProducts =
-            await _context.Products.CountAsync();
+            await _context.Products
+                .CountAsync(p => !p.IsDeleted);
 
 
         // =================================================
         // TOTAL INVENTORY UNITS
+        // Only active products are counted
         // =================================================
 
         var totalInventoryUnits =
             await _context.Products
+                .Where(p => !p.IsDeleted)
                 .Select(p => (int?)p.Quantity)
                 .SumAsync() ?? 0;
 
@@ -74,11 +78,14 @@ public class DashboardController : ControllerBase
 
         // =================================================
         // LOW STOCK PRODUCTS
+        // Only active products are shown
         // =================================================
 
         var lowStockProducts =
             await _context.Products
-                .Where(p => p.Quantity <= 10)
+                .Where(p =>
+                    !p.IsDeleted &&
+                    p.Quantity <= 10)
                 .OrderBy(p => p.Quantity)
                 .Select(p => new
                 {
@@ -93,6 +100,8 @@ public class DashboardController : ControllerBase
 
         // =================================================
         // BEST-SELLING PRODUCTS
+        // Historical sales are kept even if the product
+        // has been soft-deleted.
         // =================================================
 
         var bestSellingProducts =
@@ -161,11 +170,14 @@ public class DashboardController : ControllerBase
 
         // =================================================
         // AVAILABLE PRODUCTS
+        // Only active products are counted
         // =================================================
 
         var availableProducts =
             await _context.Products
-                .CountAsync(p => p.Quantity > 0);
+                .CountAsync(p =>
+                    !p.IsDeleted &&
+                    p.Quantity > 0);
 
 
         // =================================================
@@ -220,6 +232,8 @@ public class DashboardController : ControllerBase
 
         // =================================================
         // BEST-SELLING PRODUCTS
+        // Historical sales are kept even if the product
+        // has been soft-deleted.
         // =================================================
 
         var bestSellingProducts =

@@ -19,7 +19,9 @@ public class ProductService : IProductService
 
     public async Task<IEnumerable<Product>> GetAllProductsAsync()
     {
-        return await _context.Products.ToListAsync();
+        return await _context.Products
+            .Where(p => !p.IsDeleted)
+            .ToListAsync();
     }
 
     // ==========================================
@@ -28,7 +30,10 @@ public class ProductService : IProductService
 
     public async Task<Product?> GetProductByIdAsync(int id)
     {
-        return await _context.Products.FindAsync(id);
+        return await _context.Products
+            .FirstOrDefaultAsync(p =>
+                p.Id == id &&
+                !p.IsDeleted);
     }
 
     // ==========================================
@@ -37,6 +42,8 @@ public class ProductService : IProductService
 
     public async Task<Product> AddProductAsync(Product product)
     {
+        product.IsDeleted = false;
+
         _context.Products.Add(product);
 
         await _context.SaveChangesAsync();
@@ -53,7 +60,10 @@ public class ProductService : IProductService
         Product product)
     {
         var existingProduct =
-            await _context.Products.FindAsync(id);
+            await _context.Products
+                .FirstOrDefaultAsync(p =>
+                    p.Id == id &&
+                    !p.IsDeleted);
 
         if (existingProduct == null)
             return null;
@@ -75,23 +85,16 @@ public class ProductService : IProductService
     public async Task<bool> DeleteProductAsync(int id)
     {
         var product =
-            await _context.Products.FindAsync(id);
+            await _context.Products
+                .FirstOrDefaultAsync(p => p.Id == id);
 
         if (product == null)
             return false;
 
-        // Check whether this product has already
-        // been used in any receipt/sale.
-        var hasReceiptItems =
-            await _context.ReceiptItems
-                .AnyAsync(r => r.ProductId == id);
-
-        // Do not delete products that are part
-        // of existing sales records.
-        if (hasReceiptItems)
-            return false;
-
-        _context.Products.Remove(product);
+        // Soft delete:
+        // Do NOT physically remove the product.
+        // This keeps existing ReceiptItems intact.
+        product.IsDeleted = true;
 
         await _context.SaveChangesAsync();
 
@@ -107,7 +110,10 @@ public class ProductService : IProductService
         int quantity)
     {
         var product =
-            await _context.Products.FindAsync(productId);
+            await _context.Products
+                .FirstOrDefaultAsync(p =>
+                    p.Id == productId &&
+                    !p.IsDeleted);
 
         if (product == null || product.Quantity < quantity)
             return false;
