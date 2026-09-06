@@ -251,56 +251,43 @@ These accounts can be used to test the different permissions and functionality a
 
 
 
-# 🏗️ System Architecture
-
-
+## 🏗️ System Architecture
 
 The application follows a client-server architecture:
 
-
-┌─────────────────────────────────────┐
-│          React Frontend             │
-│                                     │
-│  Login                              │
-│  Dashboard                          │
-│  Products                           │
-│  Cart                               │
-│  Sales                              │
-│  Receipts                           │
-└────────────────┬────────────────────┘
-                 │
-                 │ HTTP / REST API
-                 ▼
-┌─────────────────────────────────────┐
-│       ASP.NET Core Web API          │
-│                                     │
-│  Controllers                        │
-│  Services                           │
-│  Authentication                     │
-│  Authorization                      │
-│  Business Logic                     │
-└────────────────┬────────────────────┘
-                 │
-                 │ Entity Framework Core
-                 ▼
-┌─────────────────────────────────────┐
-│           SQL Server                │
-│                                     │
-│  Products                           │
-│  Users                              │
-│  Sales                              │
-│  Receipts                           │
-│  Receipt Items                      │
-└─────────────────────────────────────┘
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                     React Frontend                          │
+│                                                             │
+│   Login  │  Dashboard  │  Products  │  Cart  │  Sales     │
+│   Receipts                                                │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                     HTTP / REST API
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│                  ASP.NET Core Web API                       │
+│                                                             │
+│  Controllers  │  Services  │  Authentication  │            │
+│  Authorization  │  Business Logic                          │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                     Entity Framework Core
+                           │
+┌──────────────────────────▼──────────────────────────────────┐
+│                       SQL Server                            │
+│                                                             │
+│  Products  │  Users  │  Sales  │  Receipts  │  ReceiptItems│
+└─────────────────────────────────────────────────────────────┘
+```
 
 
-# 📁 Project Structure
+## 📁 Project Structure
 
-
-PointofSale\_FullStack/
+```text
+PointofSale_FullStack/
 │
 ├── QuickStopMart.Api/
-│   │
 │   ├── Controllers/
 │   │   ├── AuthController.cs
 │   │   ├── CartController.cs
@@ -313,52 +300,35 @@ PointofSale\_FullStack/
 │   │   └── AppDbContext.cs
 │   │
 │   ├── DTOs/
-│   │
 │   ├── Migrations/
-│   │   ├── InitialCreate
-│   │   ├── ChangeMoneyTypes
-│   │   ├── AddReceiptUserRelation
-│   │   ├── AddHiddenFromAdmin
-│   │   ├── AddReceiptAmounts
-│   │   ├── AddReceiptItems
-│   │   ├── ConfigureReceiptMoneyTypes
-│   │   └── AppDbContextModelSnapshot.cs
-│   │
 │   ├── Models/
-│   │
 │   ├── Services/
-│   │
-│   ├── Properties/
-│   │
 │   ├── Program.cs
-│   ├── appsettings.json
-│   └── QuickStopMart.Api.csproj
+│   └── appsettings.json
 │
 ├── QuickStopMart.Frontend/
-│   │
-│   ├── public/
-│   │
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Sidebar
-│   │   │   └── ProtectedRoute
-│   │   │
+│   │   │   ├── Sidebar/
+│   │   │   └── ProtectedRoute/
 │   │   ├── pages/
-│   │   │   ├── Login
-│   │   │   ├── Dashboard
-│   │   │   ├── Products
-│   │   │   ├── Cart
-│   │   │   ├── Sales
-│   │   │   └── Receipts
-│   │   │
+│   │   │   ├── Login/
+│   │   │   ├── Dashboard/
+│   │   │   ├── Products/
+│   │   │   ├── Cart/
+│   │   │   ├── Sales/
+│   │   │   └── Receipts/
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   │
+│   ├── public/
 │   ├── package.json
 │   └── vite.config.js
 │
+├── Screenshots/
 ├── .gitignore
 └── README.md
+```
 
 
 
