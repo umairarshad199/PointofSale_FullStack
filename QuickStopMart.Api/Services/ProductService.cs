@@ -80,6 +80,17 @@ public class ProductService : IProductService
         if (product == null)
             return false;
 
+        // Check whether this product has already
+        // been used in any receipt/sale.
+        var hasReceiptItems =
+            await _context.ReceiptItems
+                .AnyAsync(r => r.ProductId == id);
+
+        // Do not delete products that are part
+        // of existing sales records.
+        if (hasReceiptItems)
+            return false;
+
         _context.Products.Remove(product);
 
         await _context.SaveChangesAsync();

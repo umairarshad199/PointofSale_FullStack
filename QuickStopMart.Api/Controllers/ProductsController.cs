@@ -43,26 +43,27 @@ public class ProductsController : ControllerBase
     // POST - Admin only
     // ==========================================
 
-[Authorize(Roles = "Admin")]
-[HttpPost]
-public async Task<IActionResult> Add(
-    [FromBody] CreateProductDto dto)
-{
-    var product = new Product
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> Add(
+        [FromBody] CreateProductDto dto)
     {
-        Name = dto.Name,
-        Price = dto.Price,
-        Category = dto.Category,
-        Quantity = dto.Quantity
-    };
+        var product = new Product
+        {
+            Name = dto.Name,
+            Price = dto.Price,
+            Category = dto.Category,
+            Quantity = dto.Quantity
+        };
 
-    var created = await _productService.AddProductAsync(product);
+        var created =
+            await _productService.AddProductAsync(product);
 
-    return CreatedAtAction(
-        nameof(GetAll),
-        new { id = created.Id },
-        created);
-}
+        return CreatedAtAction(
+            nameof(GetAll),
+            new { id = created.Id },
+            created);
+    }
 
     // ==========================================
     // PUT - Admin only
@@ -82,12 +83,16 @@ public async Task<IActionResult> Add(
             Quantity = dto.Quantity
         };
 
-        var updated = await _productService.UpdateProductAsync(
-            id,
-            product);
+        var updated =
+            await _productService.UpdateProductAsync(
+                id,
+                product);
 
         if (updated == null)
-            return NotFound("Product not found.");
+            return NotFound(new
+            {
+                message = "Product not found."
+            });
 
         return Ok(updated);
     }
@@ -100,11 +105,35 @@ public async Task<IActionResult> Add(
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deleted = await _productService.DeleteProductAsync(id);
+        // First check whether the product exists
+        var product =
+            await _productService.GetProductByIdAsync(id);
 
+        if (product == null)
+        {
+            return NotFound(new
+            {
+                message = "Product not found."
+            });
+        }
+
+        // Try to delete the product
+        var deleted =
+            await _productService.DeleteProductAsync(id);
+
+        // DeleteProductAsync returns false when
+        // the product has existing receipt items
         if (!deleted)
-            return NotFound("Product not found.");
+        {
+            return BadRequest(new
+            {
+                message = "This product cannot be deleted because it has existing sales records."
+            });
+        }
 
-        return Ok("Product deleted successfully.");
+        return Ok(new
+        {
+            message = "Product deleted successfully."
+        });
     }
 }
